@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 
 namespace DBUtil.DA
-{ //Test
+{ //Testing
     public abstract class BaseDA
     {
         public string ConnectionString { get; set; }

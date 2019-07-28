@@ -98,6 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DBUtil\DBUtil.csproj">
+      <Project>{F62711CE-B7E4-4201-B062-28D60D157084}</Project>
+      <Name>DBUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GeneralUtil\DagerUtil.csproj">
       <Project>{74809C56-570C-4BCB-B085-B7B093571091}</Project>
       <Name>DagerUtil</Name>

@@ -42,7 +42,10 @@
   <ItemGroup>
     <Compile Include="DA\BaseDA.cs" />
     <Compile Include="DA\CustomAttributes.cs" />
+    <Compile Include="DA\CustomExceptions.cs" />
     <Compile Include="DA\LogicHelper.cs" />
+    <Compile Include="ITable.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="InnerUtil.cs" />
     <Compile Include="Delete.cs" />
     <Compile Include="Insert.cs" />

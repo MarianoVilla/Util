@@ -8,6 +8,16 @@ using System.Text;
 
 namespace DBUtil.DA
 {
+    public static class TableExtensions
+    {
+        public static BaseDA BaseDA { get; set; }
+
+        public static Table<T> Select<T>(this Table<T> Entity, object ConditionValue, string Table = null)
+            where T : class, new()
+        {
+            return BaseDA.Get(Entity, Entity.Columns.First(), ConditionValue, Table);
+        }
+    }
     public abstract class BaseDA
     {
         public string ConnectionString { get; set; }
@@ -21,7 +31,9 @@ namespace DBUtil.DA
             this.SelectAttribute = SelectAttribute ?? typeof(Selectable);
             this.InsertAttribute = InsertAttribute ?? typeof(Insertable);
             InitialCatalog = LogicHelper.GetInitialCatalog(ConnectionString);
+            TableExtensions.BaseDA = this;
         }
+
 
         public T Get<T>(T Entity, string ConditionColumn, object ConditionValue, string Table = null)
             where T : class, new()

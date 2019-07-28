@@ -12,16 +12,43 @@ using System.Net;
 using System.Web;
 using System.Collections;
 using System.ComponentModel;
+using DBUtil;
+using DBUtil.DA;
 
 namespace Rama
 {
+    public class Customer
+    {
+        [ID]
+        [Selectable]
+        [Insertable]
+        public int ClientNumber { get; set; }
+
+        [Selectable]
+        [Insertable]
+        public string SomeOtherProp { get; set; }
+
+
+    }
+    public class UsageTestDA : BaseDA
+    {
+        public UsageTestDA(string ConnectionString) : base(ConnectionString) { }
+        public Table<Customer> Customers { get; set; }
+    }
     class Program
     {
 
         static void Main(string[] args)
         {
-
+            TestMethod();
             Console.ReadKey();
+        }
+
+        static void TestMethod()
+        {
+            UsageTestDA test = new UsageTestDA(@"Password=alpha2000;Persist Security Info=True;User ID=sintiaw;Data Source=DESKTOP-5LNC589\SQLEXPRESS;Initial Catalog=Alpha2000;");
+            var customer = new Customer() { ClientNumber = 1 };
+            test.Customers.Select(1);
         }
 
 

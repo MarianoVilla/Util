@@ -57,7 +57,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeteleTest.cs" />
+    <Compile Include="InsertTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectTest.cs" />
+    <Compile Include="UpdateTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

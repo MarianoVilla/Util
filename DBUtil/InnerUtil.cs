@@ -72,8 +72,6 @@ namespace DBUtil
                 return Entities;
             }
         }
-
-
         static T LoadByAttribute<T, U>(IDataReader dr, T Entity, U AttributeType) where U : Type
         {
             if (Entity == null)

@@ -39,6 +39,8 @@ namespace Dager
             });
         }
 
+        public static object Coalesce(params object[] objects) => objects.FirstOrDefault(s => s != null);
+
         public static void CheckEmptyChars(params char[] Chars)
         {
             CheckNullArgs(Chars);

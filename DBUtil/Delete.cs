@@ -8,11 +8,10 @@ namespace DBUtil
 {
     public static class Delete
     {
-
-        public static int DeleteEntity<T>(T EntityInstance, string ConnectionString, string ConditionColumn, string ConditionValue, string TableName = null)
+        public static int DeleteEntity<T>(T EntityInstance, string ConnectionString, string ConditionColumn, object ConditionValue, string TableName = null)
         {
             var EntityName = EntityInstance.GetType().Name;
-            TableName = Dager.StringUtil.Coalesce(EntityName, TableName);
+            TableName = Dager.StringUtil.Coalesce(TableName, EntityName);
 
             SqlParameter[] Parameters = new SqlParameter[] { new SqlParameter(ConditionColumn, ConditionValue) };
 
@@ -20,6 +19,15 @@ namespace DBUtil
             string Query = $"DELETE FROM {TableName} {Where}";
 
             return InnerUtil.ExNonQuery(Query, Parameters, ConnectionString);
+        }
+        public static int DeleteFrom<T>(T EntityInstance, string ConnectionString, string TableName = null)
+        {
+            var EntityName = EntityInstance.GetType().Name;
+            TableName = Dager.StringUtil.Coalesce(TableName, EntityName);
+
+            string Query = $"DELETE FROM {TableName}";
+
+            return InnerUtil.ExNonQuery(Query, ConnectionString);
         }
     }
 }

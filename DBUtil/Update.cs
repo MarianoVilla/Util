@@ -15,7 +15,7 @@ namespace DBUtil
             string EntityName = EntityType.Name;
             IEnumerable<PropertyInfo> Props = EntityType.GetProperties().Where(x => Attribute.IsDefined(x, AttributeType));
 
-            TableName = Dager.StringUtil.Coalesce(EntityName, TableName);
+            TableName = Dager.StringUtil.Coalesce(TableName, EntityName);
             List<SqlParameter> Parameters = new List<SqlParameter>() { new SqlParameter(ConditionColumn, ConditionValue) };
 
             string Set = "SET ";
@@ -24,10 +24,10 @@ namespace DBUtil
             foreach (var p in Props)
             {
                 var Value = p.GetValue(Entity, null);
-                if (Value == null || Value == ConditionValue)
+                if (Value == null || p.Name == ConditionColumn)
                     continue;
 
-                Set += $"{p.Name} = @{p.Name}, ";
+                Set += $"{p.Name}=@{p.Name}, ";
                 Parameters.Add(new SqlParameter(p.Name, Value));
             }
 
@@ -43,7 +43,7 @@ namespace DBUtil
             string EntityName = EntityType.Name;
             IEnumerable<PropertyInfo> Props = EntityType.GetProperties().Where(x => Attribute.IsDefined(x, AttributeType));
 
-            TableName = Dager.StringUtil.Coalesce(EntityName, TableName);
+            TableName = Dager.StringUtil.Coalesce(TableName, EntityName);
             List<SqlParameter> Parameters = new List<SqlParameter>() { new SqlParameter(ConditionColumn, ConditionValue) };
 
             string Set = "SET ";

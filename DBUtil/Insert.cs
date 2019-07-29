@@ -16,7 +16,7 @@ namespace DBUtil
             string EntityName = EntityType.Name;
             IEnumerable<PropertyInfo> InsertableProps = EntityType.GetProperties().Where(x => Attribute.IsDefined(x, AttributeType));
 
-            TableName = Dager.StringUtil.Coalesce(EntityName, TableName);
+            TableName = Dager.StringUtil.Coalesce(TableName, EntityName);
             string Columns = "(";
             string Values = "VALUES (";
 
@@ -41,7 +41,7 @@ namespace DBUtil
             string EntityName = EntityType.Name;
             IEnumerable<PropertyInfo> InsertableProps = EntityType.GetProperties().Where(x => Attribute.IsDefined(x, AttributeType));
 
-            TableName = Dager.StringUtil.Coalesce(EntityName, TableName);
+            TableName = Dager.StringUtil.Coalesce(TableName, EntityName);
             string Columns = "(";
             string Values = "VALUES (";
 

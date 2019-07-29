@@ -8,49 +8,51 @@ using System.Text;
 
 namespace DBUtil.DA
 {
-    public static class TableExtensions
-    {
-        public static BaseDA BaseDA { get; set; }
-
-        public static Table<T> Select<T>(this Table<T> Entity, object ConditionValue, string Table = null)
-            where T : class, new()
-        {
-            return BaseDA.Get(Entity, Entity.Columns.First(), ConditionValue, Table);
-        }
-    }
     public abstract class BaseDA
     {
+        #region Props.
         public string ConnectionString { get; set; }
         private string InitialCatalog { get; set; }
         public Type SelectAttribute { get; set; }
         public Type InsertAttribute { get; set; }
+        #endregion
 
-        public BaseDA(string ConnectionString, Type SelectAttribute = null, Type InsertAttribute = null)
+        #region Ctor.
+        protected BaseDA(string ConnectionString, Type SelectAttribute = null, Type InsertAttribute = null)
         {
             this.ConnectionString = ConnectionString;
             this.SelectAttribute = SelectAttribute ?? typeof(Selectable);
             this.InsertAttribute = InsertAttribute ?? typeof(Insertable);
             InitialCatalog = LogicHelper.GetInitialCatalog(ConnectionString);
-            TableExtensions.BaseDA = this;
+            TableExtensionMethods.BaseDA = this;
         }
+        #endregion
 
-
-        public T Get<T>(T Entity, string ConditionColumn, object ConditionValue, string Table = null)
+        #region Select.
+        public T Select<T>(T Entity, string ConditionColumn, object ConditionValue, string Table = null)
             where T : class, new()
         {
-            return Select.ByAttribute(Entity, SelectAttribute, ConditionColumn, ConditionValue, ConnectionString, Table);
+            return DBUtil.Select.ByAttribute(Entity, SelectAttribute, ConditionColumn, ConditionValue, ConnectionString, Table);
         }
 
-        public List<T> GetList<T>(T Entity, string TableName = null)
+        public List<T> Select<T>(T Entity, string TableName = null)
             where T : class, new()
         {
-            return Select.ByAttribute(Entity, SelectAttribute, ConnectionString, TableName);
+            return DBUtil.Select.ByAttribute(Entity, SelectAttribute, ConnectionString, TableName);
         }
+        #endregion
 
-        public int Delete<T>(T Entity, string ConditionColumn, string ConditionValue, string TableName = null)
+        #region Delete.
+        public int Delete<T>(T Entity, string ConditionColumn, object ConditionValue, string TableName = null)
         {
             return DBUtil.Delete.DeleteEntity(Entity, ConnectionString, ConditionColumn, ConditionValue, TableName);
         }
+
+        public int DeleteFrom<T>(T Entity, string TableName = null)
+        {
+            return DBUtil.Delete.DeleteFrom(Entity, ConnectionString, TableName);
+        }
+        #endregion
 
         public int Insert<T>(T Entity, string TableName = null)
         {

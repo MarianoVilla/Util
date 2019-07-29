@@ -32,8 +32,13 @@ namespace Rama
     }
     public class UsageTestDA : BaseDA
     {
-        public UsageTestDA(string ConnectionString) : base(ConnectionString) { }
         public Table<Customer> Customers { get; set; }
+
+        public UsageTestDA(string ConnectionString) : base(ConnectionString)
+        {
+            Customers = new Table<Customer>();
+        }
+        
     }
     class Program
     {
@@ -47,8 +52,11 @@ namespace Rama
         static void TestMethod()
         {
             UsageTestDA test = new UsageTestDA(@"Password=alpha2000;Persist Security Info=True;User ID=sintiaw;Data Source=DESKTOP-5LNC589\SQLEXPRESS;Initial Catalog=Alpha2000;");
-            var customer = new Customer() { ClientNumber = 1 };
-            test.Customers.Select(1);
+            var CustomerObject = new Customer { ClientNumber = 2, SomeOtherProp = "Test" };
+
+            CustomerObject.SomeOtherProp = "Re-Modified Prop";
+
+
         }
 
 

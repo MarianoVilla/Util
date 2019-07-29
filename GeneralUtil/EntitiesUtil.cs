@@ -29,6 +29,15 @@ namespace Dager
             }
             return Parametros;
         }
+        public static object GetPropValueByAttribute<T, U>(T Entity, U AttributeType)
+            where U : Type
+        {
+
+            var Prop = Entity.GetType().GetProperties().FirstOrDefault(x => Attribute.IsDefined(x, AttributeType));
+            if (Prop == null)
+                return null;
+            return Prop.GetValue(Entity, null);
+        }
 
     }
 }

@@ -9,6 +9,7 @@ namespace DBUtil
 {
     internal static class InnerUtil
     {
+
         public static int ExNonQuery(string Query, SqlParameter[] Parameters, string ConnectionString)
         {
             using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -16,6 +17,16 @@ namespace DBUtil
             {
                 conn.Open();
                 command.Parameters.AddRange(Parameters);
+                return command.ExecuteNonQuery();
+            }
+        }
+
+        public static int ExNonQuery(string Query, string ConnectionString)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            using (SqlCommand command = new SqlCommand(Query, conn))
+            {
+                conn.Open();
                 return command.ExecuteNonQuery();
             }
         }
@@ -67,7 +78,7 @@ namespace DBUtil
                 dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    Entities.Add(LoadByAttribute(dr, Entity, AttributeType));
+                    Entities.Add(LoadByAttribute(dr, new T(), AttributeType));
                 }
                 return Entities;
             }

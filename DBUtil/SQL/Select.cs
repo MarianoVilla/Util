@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-namespace DBUtil
+namespace DBUtil.SQL
 {
     public static class Select
     {

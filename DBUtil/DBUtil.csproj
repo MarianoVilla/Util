@@ -44,15 +44,14 @@
     <Compile Include="DA\CustomAttributes.cs" />
     <Compile Include="DA\CustomExceptions.cs" />
     <Compile Include="DA\LogicHelper.cs" />
-    <Compile Include="Table.cs" />
-    <Compile Include="InnerUtil.cs" />
-    <Compile Include="Delete.cs" />
-    <Compile Include="Insert.cs" />
+    <Compile Include="Table\Table.cs" />
+    <Compile Include="SQL\InnerUtil.cs" />
+    <Compile Include="SQL\Delete.cs" />
+    <Compile Include="SQL\Insert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Select.cs" />
-    <Compile Include="TableExtensionMethods.cs" />
-    <Compile Include="Update.cs" />
-    <Compile Include="UsageTestDA.cs" />
+    <Compile Include="SQL\Select.cs" />
+    <Compile Include="Table\TableExtensionMethods.cs" />
+    <Compile Include="SQL\Update.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeneralUtil\DagerUtil.csproj">

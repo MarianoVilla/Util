@@ -7,7 +7,7 @@ namespace DBUtil.DA
 {
     public class NoIDColumnException : Exception
     {
-        public NoIDColumnException(string Message) : base(Message) {  }
+        public NoIDColumnException(string message) : base(message) {  }
     }
 
 }

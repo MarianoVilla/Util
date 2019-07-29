@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace DBUtil
+namespace DBUtil.SQL
 {
     public static class Insert
     {

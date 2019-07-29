@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace DBUtilTest
 {
-    public class DeteleTest
+    class InnerUtilTest
     {
-        [Fact]
-        public void DeleteEntity_ShouldConstructQuery()
-        {
-        }
     }
 }

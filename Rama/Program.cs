@@ -1,19 +1,6 @@
-﻿using Dager;
+﻿using DBUtil.DA;
+using DBUtil.Table;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Globalization;
-using System.Threading;
-using System.Net;
-using System.Web;
-using System.Collections;
-using System.ComponentModel;
-using DBUtil;
-using DBUtil.DA;
 
 namespace Rama
 {

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-namespace DBUtil
+namespace DBUtil.SQL
 {
     internal static class InnerUtil
     {
@@ -30,6 +30,7 @@ namespace DBUtil
                 return command.ExecuteNonQuery();
             }
         }
+
         public static decimal? ExScalarGetID(string Query, SqlParameter[] Parameters, string ConnectionString)
         {
             using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -40,6 +41,7 @@ namespace DBUtil
                 return (decimal?)command.ExecuteScalar();
             }
         }
+
         public static T ExReader<T, U>(T Entity, string Query, SqlParameter[] Parameters, string ConnectionString, U AttributeType)
             where T : class, new()
             where U : Type
@@ -63,6 +65,7 @@ namespace DBUtil
                 return Entity;
             }
         }
+
         public static List<T> ExReader<T, U>(T Entity, U AttributeType, string Query, string ConnectionString)
             where T : class, new()
             where U : Type
@@ -83,6 +86,7 @@ namespace DBUtil
                 return Entities;
             }
         }
+
         static T LoadByAttribute<T, U>(IDataReader dr, T Entity, U AttributeType) where U : Type
         {
             if (Entity == null)

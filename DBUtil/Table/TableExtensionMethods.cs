@@ -1,10 +1,8 @@
 ﻿using DBUtil.DA;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace DBUtil
+namespace DBUtil.Table
 {
     public static class TableExtensionMethods
     {
@@ -52,5 +50,6 @@ namespace DBUtil
             ConditionValue = Dager.GeneralUtil.Coalesce(ConditionValue, Dager.EntitiesUtil.GetPropValueByAttribute(Entity, typeof(ID)));
             return BaseDA.UpdateGetID(Entity, Self.Columns.First(), ConditionValue, TableName);
         }
+
     }
 }

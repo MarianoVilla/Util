@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DBUtil
+namespace DBUtil.Table
 {
     public class Table<T> where T : class, new()
     {

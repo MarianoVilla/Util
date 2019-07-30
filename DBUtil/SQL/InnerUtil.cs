@@ -86,6 +86,27 @@ namespace DBUtil.SQL
                 return Entities;
             }
         }
+        public static List<T> ExReader<T, U>(T Entity, U AttributeType, SqlParameter[] Parameters, string Query, string ConnectionString)
+            where T : class, new()
+            where U : Type
+        {
+            List<T> Entities = new List<T>();
+            SqlDataReader dr = null;
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            using (SqlCommand command = new SqlCommand(Query, conn))
+            {
+                conn.Open();
+                command.CommandType = CommandType.Text;
+                command.CommandTimeout = 0;
+                command.Parameters.AddRange(Parameters);
+                dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    Entities.Add(LoadByAttribute(dr, new T(), AttributeType));
+                }
+                return Entities;
+            }
+        }
 
         static T LoadByAttribute<T, U>(IDataReader dr, T Entity, U AttributeType) where U : Type
         {

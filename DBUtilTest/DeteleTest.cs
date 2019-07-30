@@ -9,9 +9,5 @@ namespace DBUtilTest
 {
     public class DeteleTest
     {
-        [Fact]
-        public void DeleteEntity_ShouldConstructQuery()
-        {
-        }
     }
 }

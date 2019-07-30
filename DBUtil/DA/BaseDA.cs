@@ -35,11 +35,14 @@ namespace DBUtil.DA
 
         #region Select.
 
-        public T Select<T>(T Entity, string ConditionColumn, object ConditionValue, string TableName = null)
-            where T : class, new() => SQL.Select.ByAttribute(Entity, SelectAttribute, ConditionColumn, ConditionValue, ConnectionString, $"{InitialCatalog}[{TableName}");
+        public T SelectSingle<T>(T Entity, string ConditionColumn, object ConditionValue, string TableName = null)
+            where T : class, new() => SQL.Select.ByAttributeSingle(Entity, SelectAttribute, ConditionColumn, ConditionValue, ConnectionString, $"{InitialCatalog}[{TableName}");
 
         public List<T> Select<T>(T Entity, string TableName = null)
             where T : class, new() => SQL.Select.ByAttribute(Entity, SelectAttribute, ConnectionString, $"{InitialCatalog}[{TableName}");
+
+        public List<T> Select<T>(T Entity, string ConditionColumn, object ConditionValue, string TableName = null)
+            where T : class, new() => SQL.Select.ByAttribute(Entity, SelectAttribute, ConditionColumn, ConditionValue, ConnectionString, TableName);
 
         #endregion
 

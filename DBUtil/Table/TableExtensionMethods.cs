@@ -8,11 +8,14 @@ namespace DBUtil.Table
     {
         internal static BaseDA BaseDA { get; set; }
 
-        public static T Select<T>(this Table<T> Self, object ConditionValue, string TableName = null)
+        public static T SelectSingle<T>(this Table<T> Self, object ConditionValue, string TableName = null)
             where T : class, new()
         {
-            return BaseDA.Select(new T(), Self.Columns.First(), ConditionValue, TableName);
+            return BaseDA.SelectSingle(new T(), Self.Columns.First(), ConditionValue, TableName);
         }
+        public static List<T> Select<T>(this Table<T> Self, object ConditionValue, string ConditionColumn = null, string TableName = null)
+            where T : class, new() => BaseDA.Select(new T(), ConditionColumn ?? Self.Columns.First(), ConditionValue, TableName);
+
         public static List<T> Select<T>(this Table<T> Self, string TableName = null)
             where T : class, new()
         {

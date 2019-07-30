@@ -15,7 +15,12 @@ namespace Rama
         [Insertable]
         public string SomeOtherProp { get; set; }
 
-
+    }
+    public class subitems
+    {
+        [ID]
+        [Selectable]
+        public string interno { get; set; }
     }
     public class UsageTestDA : BaseDA
     {
@@ -41,8 +46,7 @@ namespace Rama
             UsageTestDA test = new UsageTestDA(@"Password=alpha2000;Persist Security Info=True;User ID=sintiaw;Data Source=DESKTOP-5LNC589\SQLEXPRESS;Initial Catalog=Alpha2000;");
             var CustomerObject = new Customer { ClientNumber = 2, SomeOtherProp = "Test" };
 
-            CustomerObject.SomeOtherProp = "Re-Modified Prop";
-
+            var CustomersList = test.Customers.Select("test", "SomeOtherProp");
 
         }
 

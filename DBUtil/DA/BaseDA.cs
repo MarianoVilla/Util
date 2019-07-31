@@ -10,7 +10,7 @@ using System.Text;
 namespace DBUtil.DA
 {
     public abstract class BaseDA
-    {
+    {//
         #region Props.
 
         public string ConnectionString { get; set; }

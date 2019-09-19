@@ -9,13 +9,16 @@ namespace DBUtil.Table
     public class Table<T> where T : class, new()
     {
         internal List<string> Columns { get; } = new List<string>();
+        internal string[] IDColumns { get; }
 
         public Table()
         {
-            var IDColumn = typeof(T).GetProperties().FirstOrDefault(x => Attribute.IsDefined(x, typeof(ID)));
-            if (IDColumn == null)
-                throw new NoIDColumnException("Every table has to have an [ID] property.");
-            Columns.Add(IDColumn.Name);
+            var IDProps = typeof(T).GetProperties().Where(x => Attribute.IsDefined(x, typeof(ID))).ToArray();
+            if (IDProps == null)
+                return;
+            IDColumns = new string[IDProps.Count()];
+            for(int i = 0; i < IDProps.Count(); i++)
+                IDColumns[i] = IDProps[i].Name;
         }
 
     }

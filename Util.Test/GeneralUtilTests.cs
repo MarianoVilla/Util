@@ -186,6 +186,13 @@ namespace Dager.Test
             }
         }
 
+        [Theory]
+        [InlineData(@"C:\Program Files\Alpha2000\SIM-UP\AlphaPrint\Alphas.exe", null)]
+        public static void RunProcess_ShouldWork(string Path, string Params = null)
+        {
+            var Proc = GeneralUtil.RunProcess(Path, Params);
+        }
+
 
         public static List<string> Splittear_ShouldWork(Regex Reg, string line, char CriterioSplit)
         {

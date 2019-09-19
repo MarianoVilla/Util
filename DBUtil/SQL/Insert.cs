@@ -54,7 +54,7 @@ namespace DBUtil.SQL
             }
             Columns = Columns.Substring(0, Columns.Length - 2) + ")\n";
             Values = Values.Substring(0, Values.Length - 2) + ")";
-            string Query = $"INSERT INTO { TableName} { Columns} {Values} SELECT SCOPE_IDENTITY()";
+            string Query = $"INSERT INTO {TableName} {Columns} {Values} SELECT SCOPE_IDENTITY()";
 
             return InnerUtil.ExScalarGetID(Query, Parameters, ConnectionString);
         }

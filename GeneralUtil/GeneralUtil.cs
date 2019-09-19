@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Dager
@@ -94,6 +95,18 @@ namespace Dager
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
             System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
             return fvi.FileVersion;
+        }
+        public static Process RunProcess(string Path, string Params = null, bool CreateNoWindow = false)
+        {
+            Process Proc = new Process();
+            Proc.StartInfo = new ProcessStartInfo(Path)
+            {
+                Arguments = Params,
+                UseShellExecute = false,
+                CreateNoWindow = CreateNoWindow
+            };
+            Proc.Start();
+            return Proc;
         }
 
     }

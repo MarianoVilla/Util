@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -58,6 +59,8 @@ namespace Dager
         }
 
         public static string Coalesce(params string[] strings) => strings.FirstOrDefault(s => !string.IsNullOrEmpty(s));
+
+        public static string ToInvariantString(this string source) => source == null ? throw new ArgumentNullException(nameof(source)) : source.ToString(CultureInfo.InvariantCulture);
 
         public static string GetConnectionStringValue(string ConnectionString, string Key)
         {

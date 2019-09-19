@@ -29,14 +29,14 @@ namespace Dager
             }
             return Parametros;
         }
-        public static object GetPropValueByAttribute<T, U>(T Entity, U AttributeType)
+        public static object[] GetPropsValueByAttribute<T, U>(T Entity, U AttributeType)
             where U : Type
         {
-
-            var Prop = Entity.GetType().GetProperties().FirstOrDefault(x => Attribute.IsDefined(x, AttributeType));
-            if (Prop == null)
-                return null;
-            return Prop.GetValue(Entity, null);
+            var Props = Entity.GetType().GetProperties().Where(x => Attribute.IsDefined(x, AttributeType)).ToList();
+            object[] Output = new object[Props.Count()];
+            for (int i = 0; i < Props.Count(); i++)
+                Output[i] = Props[i].GetValue(Entity, null);
+            return Output;
         }
 
     }

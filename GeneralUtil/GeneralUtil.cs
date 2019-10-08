@@ -73,6 +73,12 @@ namespace Dager
 
         public static object ChangeType(object value, Type t)
         {
+            if(value == null)
+            {
+                if (t.IsValueType)
+                    throw new InvalidCastException();
+                else return null;
+            }
             if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
             {
                 if (value == null)
@@ -85,6 +91,11 @@ namespace Dager
             if(value.GetType() == typeof(string) && t.GetType() == typeof(double))
             {
                 value = ((string)value).Replace('.', ',');
+            }
+            if (t == typeof(DateTime))
+            {
+                DateTime Date;
+                return DateTime.TryParse(value.ToString(), out Date) ? Date : default(DateTime);
             }
             if (t.IsEnum)
                 return Enum.Parse(t, value.ToString());

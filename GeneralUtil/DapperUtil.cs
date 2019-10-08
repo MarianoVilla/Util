@@ -7,7 +7,6 @@ using Dapper;
 
 namespace GeneralUtil
 {
-
     public class DapperWrapper
     {
         string ConnectionString;

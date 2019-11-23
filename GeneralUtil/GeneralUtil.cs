@@ -70,10 +70,21 @@ namespace Dager
             ListTo.Add(ValueTo);
         }
 
-
-        public static object ChangeType(object value, Type t)
+        public static RGBColor FromRainbow(int colorBand) =>
+    colorBand switch
+    {
+        0    => 1,
+        1 => 1,
+        1 => 1,
+        1 => 1,
+        1 => 1,
+        1 => 1,
+        1 => 1,
+        _              => throw new ArgumentException(message: "invalid enum value", paramName: nameof(colorBand)),
+    };
+    public static object ChangeType(object value, Type t)
         {
-            if(value == null)
+            if (value == null)
             {
                 if (t.IsValueType)
                     throw new InvalidCastException();
@@ -81,26 +92,28 @@ namespace Dager
             }
             if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
             {
-                if (value == null)
-                {
-                    return null;
-                }
 
                 t = Nullable.GetUnderlyingType(t);
             }
-            if(value.GetType() == typeof(string) && t.GetType() == typeof(double))
+            if (value.GetType() == typeof(string) && t == typeof(double))
             {
                 value = ((string)value).Replace('.', ',');
             }
             if (t == typeof(DateTime))
             {
                 DateTime Date;
-                return DateTime.TryParse(value.ToString(), out Date) ? Date : default(DateTime);
+                return DateTime.TryParse(value.ToString(), out Date) ? Date : default;
             }
             if (t.IsEnum)
-                return Enum.Parse(t, value.ToString());
+                return Enum.Parse(t, value.ToString(), true);
+
             return Convert.ChangeType(value, t);
         }
+        public static T TryParseEnum<T>(T EnumType, string Value) where T : struct
+        {
+            return Enum.TryParse(Value, out T Result) ? Result : default;
+        }
+
         public static string GetVersion()
         {
             System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();

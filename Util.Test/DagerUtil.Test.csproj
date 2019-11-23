@@ -78,7 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileUtilTest.cs" />
     <Compile Include="GeneralUtilTests.cs" />
+    <Compile Include="InnerAux\EnumsAndConsts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringUtilTest.cs" />
   </ItemGroup>

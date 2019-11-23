@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Dager;
+using Util.Test.InnerAux;
 using Xunit;
 
 namespace Dager.Test
@@ -34,7 +35,7 @@ namespace Dager.Test
         }
 
         [Fact]
-        public void CheckEmptyStrings_ShouldNotThrowEx()
+        public void CheckEmptyStrings_ShouldWork()
         {
             GeneralUtil.CheckEmptyStrings("Hi");
             GeneralUtil.CheckEmptyStrings("Hi", "Test");
@@ -112,23 +113,17 @@ namespace Dager.Test
             Assert.True(ReachedEOF);
         }
 
-        public enum TestEnum
-        {
-            defaultValue,
-            test
-        }
+
         [Theory]
-        [InlineData("Test", typeof(decimal))]
         [InlineData(0, typeof(TestEnum))]
         [InlineData("defaultValue", typeof(TestEnum))]
-        [InlineData("Ran", typeof(TestEnum))]
-        [InlineData(null, typeof(TestEnum))]
         [InlineData(10.0, typeof(decimal?))]
         [InlineData(null, typeof(string))]
         [InlineData(123, typeof(object))]
+        [InlineData("SomeString", typeof(DateTime))]
         public static void ChangeType_ShouldWork(object value, Type t)
         {
-            var val = GeneralUtil.ChangeType(value, t);
+            GeneralUtil.ChangeType(value, t);
         }
 
         [Theory]
@@ -151,46 +146,10 @@ namespace Dager.Test
         }
 
         [Theory]
-        [InlineData(@"C:\Users\dager\Desktop\Desktop\Alpha\impo_201902_SADESA.csv")]
-        public static void CSVToSQL_ShouldWork(string FilePath)
-        {
-            Regex Reg = new Regex("[\\s]");
-            List<Type> Types = new List<Type> { typeof(double) };
-
-            using (StreamReader sr = new StreamReader(FilePath))
-            {
-                string Header = sr.ReadLine();
-                var Campos = Splittear_ShouldWork(Reg, Header, ';');
-                Campos.RemoveAll(x => string.IsNullOrWhiteSpace(x));
-                Assert.True(Campos.Count > 1);
-                string line = string.Empty;
-                int i = 0;
-
-                while ((line = sr.ReadLine()) != null)
-                {
-                    var Splitted = Splittear_ShouldWork(Reg, line, ';');
-                    foreach (var t in Types)
-                    {
-                        object[] ReturningValues = new object[Splitted.Count];
-                        foreach (var val in Splitted)
-                        {
-                            ReturningValues[i] = GeneralUtil.ChangeType(Splitted[i].Replace('.', ','), t);
-                            if (ReturningValues[i] != null)
-                                Assert.Equal(Splitted[i], ReturningValues[i].ToString());
-                            i++;
-                        }
-                        i = 0;
-                    }
-                }
-
-            }
-        }
-
-        [Theory]
-        [InlineData(@"C:\Program Files\Alpha2000\SIM-UP\AlphaPrint\Alphas.exe", null)]
+        [InlineData(@"cmd.exe", null)]
         public static void RunProcess_ShouldWork(string Path, string Params = null)
         {
-            var Proc = GeneralUtil.RunProcess(Path, Params);
+            GeneralUtil.RunProcess(Path, Params);
         }
 
 

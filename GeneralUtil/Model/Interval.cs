@@ -11,6 +11,11 @@ namespace GeneralUtil.Model
             Minimum = Min;
             Maximum = Max;
         }
+        public Interval()
+        {
+            Minimum = default(T);
+            Maximum = default(T);
+        }
         /// <summary>Minimum value of the range.</summary>
         public T Minimum { get; set; }
 

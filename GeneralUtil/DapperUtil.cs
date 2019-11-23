@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-namespace GeneralUtil
+namespace Dager
 {
     public class DapperWrapper
     {
@@ -17,21 +17,27 @@ namespace GeneralUtil
         public static IEnumerable<T> MapEntity<T>(T Entity, dynamic DapperResult) where T : new()
         {
             List<T> Output = new List<T>();
+            var PropsOfT = Entity.GetType().GetProperties();
             foreach (var row in DapperResult)
             {
                 T Ent = new T();
-                var PropsOfT = Entity.GetType().GetProperties();
                 foreach (var p in PropsOfT)
                 {
                     var data = (IDictionary<string, object>)row;
                     var DataInRow = data[p.Name];
                     if (DataInRow == null)
                         continue;
-                    p.SetValue(Ent, DataInRow, null);
+                    p.SetValue(Ent, GeneralUtil.ChangeType(DataInRow, p.PropertyType), null);
                 }
                 Output.Add(Ent);
             }
             return Output;
+        }
+
+        public IEnumerable<T> QueryAndMap<T>(T Entity, string SQL, object Param) where T : new()
+        {
+            var QueryResult = Query(SQL, Param);
+            return MapEntity(Entity, QueryResult);
         }
 
         public IEnumerable<dynamic> Query(string QueryString)

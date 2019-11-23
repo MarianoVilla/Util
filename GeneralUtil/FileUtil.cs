@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 
 namespace Dager
@@ -29,6 +31,20 @@ namespace Dager
                 Directories.AddRange(Directory.GetDirectories(Path, sp, searchOption));
             Directories.Sort();
             return Directories;
+        }
+        private static bool GrantAccess(string FullPath)
+        {
+            DirectoryInfo dInfo = new DirectoryInfo(FullPath);
+            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+            dSecurity.AddAccessRule(new FileSystemAccessRule(
+                new SecurityIdentifier(WellKnownSidType.WorldSid, null),
+                FileSystemRights.FullControl,
+                InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                PropagationFlags.NoPropagateInherit,
+                AccessControlType.Allow));
+
+            dInfo.SetAccessControl(dSecurity);
+            return true;
         }
 
     }
